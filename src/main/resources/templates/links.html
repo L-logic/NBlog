@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="commons :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>友链</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{css/me.css}">
+</head>
+<body>
+
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="commons :: menu(7)">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item" style="font-family: 'YaHei Consolas Hybrid'">Blog</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="mini home icon"></i>&nbsp;<span
+                    style="font-size: 22px;font-family: 华文行楷">首页</span></a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="mini idea icon"></i>&nbsp;<span
+                    style="font-size: 22px;font-family: 华文行楷">分类</span></a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>&nbsp;<span
+                    style="font-size: 22px;font-family: 华文行楷">标签</span></a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon"></i>&nbsp;<span
+                    style="font-size: 22px;font-family: 华文行楷">归档</span></a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="mini info icon"></i><span
+                    style="font-size: 22px;font-family: 华文行楷">关于我</span></a>
+            <div class="right m-item item m-mobile-hide">
+                <div class="ui icon inverted transparent input m-margin-tb-tiny">
+                    <input type="text" placeholder="Search....">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<br>
+<br>
+<!--中间内容-->
+<div id="waypoint" class="m-container m-padding-tb-big animated fadeInUp m-opacity">
+    <div class="ui container">
+        <!--header-->
+        <div class="ui top attached segment m-bg">
+            <div class="ui middle aligned one column grid ">
+                <div class="column">
+                    <h3 class="m-pink m-text-center">友链申请</h3>
+                </div>
+            </div>
+        </div>
+        <!--列表-->
+        <div class="ui attached segment m-padding-tb-large m-bg">
+            <div class="ui container">
+
+                <ui class="list">
+                    <div class="m-margin-left-mini m-margin-tb-tiny" style="font-size: large;font-weight: bold">申请要求
+                    </div>
+                    <br>
+                    <li class="m-margin-left m-margin-tb-tiny m-li" style="font-size: medium">网站能够一直更新博客</li>
+                    <li class="m-margin-left m-margin-tb-tiny m-li" style="font-size: medium">按照格式留言或者微信、QQ加我再发给我</li>
+                    <li class="m-margin-left m-margin-tb-tiny m-li" style="font-size: medium">在申请前请先把本站添加为友情链接</li>
+                    <li class="m-margin-left m-margin-tb-tiny m-li" style="font-size: medium">如果有疑问可以留言</li>
+                    <br>
+                    <div class="m-margin-left-mini m-margin-tb-tiny" style="font-size: large;font-weight: bold">申请格式
+                    </div>
+                    <br>
+                    <li class="m-margin-left m-margin-tb-tiny m-li" style="font-size: medium">网站标题：zhangzied</li>
+                    <li class="m-margin-left m-margin-tb-tiny m-li" style="font-size: medium">网站地址：http://www.zhangzied.cn/
+                    </li>
+                    <li class="m-margin-left m-margin-tb-tiny m-li" style="font-size: medium">
+                        图片地址：http://www.zhangzied.cn/images/huge.jpg <span style="color: red"></span>
+                    </li>
+                    <br>
+                    <br>
+                </ui>
+
+            </div>
+
+        </div>
+        <!--内容-->
+        <div class="ui top attached padding segment m-top-color  m-bg">
+            <div class="ui five column grid">
+
+                <div class="column m-mobile-Fwide m-margin-mobile m-mobile-clear m-margin-friend" th:each="link:${links}">
+                    <a target="_blank" href="#" th:href="@{${link.url}}">
+                        <div class="ui fluid card m-bg">
+                            <div class="image">
+                                <img class="ui medium  image"
+                                     src="https://onestar.newstar.net.cn/images/me.jpg" th:src="@{${link.picture}}">
+                            </div>
+                            <div class="content m-bg">
+                                <a target="_blank" href="#" th:href="@{${link.url}}"
+                                   class="header m-text-center" th:text="${link.name}">ONESTARの客栈</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--/*-->
+                <div class="column m-mobile-Fwide m-margin-mobile m-mobile-clear m-margin-friend">
+                    <a target="_blank" href="http://xiongsihao.com/">
+                        <div class="ui fluid card m-bg">
+                            <div class="image">
+                                <img class="ui medium  image"
+                                     src="http://img-home.csdnimg.cn/images/20210706093802.jpg">
+                                <!-- src="http://thirdqq.qlogo.cn/g?b=oidb&amp;k=FiaIS56ZqN6CcEsNsuY3jQw&amp;s=640&amp;t=1556116622">-->
+                            </div>
+                            <div class="content m-bg">
+                                <a target="_blank" href="http://xiongsihao.com/"
+                                   class="header m-text-center">Xiong_sh</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="column m-mobile-Fwide m-margin-mobile m-mobile-clear m-margin-friend">
+                    <a target="_blank" href="http://xiongsihao.com/">
+                        <div class="ui fluid card m-bg">
+                            <div class="image">
+                                <img class="ui medium  image"
+                                     src="http://thirdqq.qlogo.cn/g?b=oidb&amp;k=FiaIS56ZqN6CcEsNsuY3jQw&amp;s=640&amp;t=1556116622">
+                            </div>
+                            <div class="content m-bg">
+                                <a target="_blank" href="http://xiongsihao.com/"
+                                   class="header m-text-center">Xiong_sh</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--*/-->
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="toolbar" class="animated bounceInUp m-fixed m-right-bottom-down " style="display: none">
+    <div class="ui vertical icon buttons">
+        <div id="toTop-button" class="ui secondary m-bg-pink icon button"><i class="chevron up icon"></i></div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--底部footer-->
+<footer class="ui inverted vertical segment m-padded-tb-massive m-opacity" th:replace="commons :: footer">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item m-text-thin">Email：123456@163.com</a>
+                    <a href="#" class="item m-text-thin">QQ：123456</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 - <span>2020</span> &nbsp;CPP &nbsp; Designed by mt</p>
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    var pageNum;
+
+    function page(obj) {
+        pageNum = $(obj).attr("pageNum");
+        loaddata();
+    }
+
+    //提交表单
+    function loaddata() {
+        //局部刷新的必须的元素id必须调用load
+        $("#blogList").load(/*[[@{/front/type/showAll/search}]]*/"/front/type/showAll/search",
+            {pageNum: pageNum, id: /*[[${typeId}]]*/1});
+
+    }
+
+</script>
+<script src="../static/layui/layui.js" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:replace="commons :: script"></script>
+</body>
+</html>

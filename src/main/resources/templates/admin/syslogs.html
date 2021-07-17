@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/commons :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日志管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:replace="admin/commons :: menu(10)">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">管理后台</h2>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="mini home icon"></i>&nbsp;<span
+                    style="font-size: 22px;font-family: 华文行楷">博客</span></a>
+            <a href="#" class=" m-item item m-mobile-hide"><i class="mini idea icon"></i>&nbsp;<span
+                    style="font-size: 22px;font-family: 华文行楷">分类</span></a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>&nbsp;<span
+                    style="font-size: 22px;font-family: 华文行楷">标签</span></a>
+            <div class="right m-item m-mobile-hide menu">
+                <div class="ui dropdown  item">
+                    <div class="text">
+                        <img class="ui avatar image" src="https://unsplash.it/100/100?image=1005">
+                        张鹏
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/logout}" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" class="teal active item">列表</a>
+        </div>
+    </div>
+</div>
+
+<!--中间内容-->
+<div class="m-container-largest m-padded-tb-big m-opacity">
+    <div class="ui segment form" style="margin-top: 150px">
+        <div class="inline fields">
+            <input type="hidden" name="pageNum" id="pageNum">
+            <div class="field">
+                <input type="text" name="nickname" id="nickname"
+                       th:value="${#strings.isEmpty(nickname) == false ? nickname : ''}" placeholder="用户昵称">
+            </div>
+            <div class="field">
+                <button class="ui mini teal basic button" onclick="loaddata()"><i class="search icon"></i>搜索
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+        <i class="close icon"></i>
+        <div class="header">提示：</div>
+        <p th:text="${message}">操作成功！</p>
+    </div>
+    <form action="#" th:action="@{/admin/syslog/deleteBySelect}">
+        <table class="ui compact teal table" th:fragment="syslogList" id="syslogList">
+            <thead>
+            <tr>
+                <th><input type="checkbox" onclick="changeSelect(this)"/></th>
+                <th>序号</th>
+                <th>用户昵称</th>
+                <th>访问时间</th>
+                <th>访问IP</th>
+                <th>访问URL</th>
+                <th>访问方法</th>
+                <th>执行时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="syslog, syslogStatus :${pageInfo.list}">
+                <td><input type="checkbox" name="ids" th:value="${syslog.id}"/></td>
+                <td th:text="${syslogStatus.count}">1</td>
+                <td th:text="${syslog.nickname}">张鹏</td>
+                <td th:text="${#dates.format(syslog.visitTime,'yyyy-MM-dd HH:mm')}">2020-06-18 12:24</td>
+                <td th:text="${syslog.ip}">0:0:0:0:0:0:0:1</td>
+                <td th:text="${syslog.url}">/admin/user/showAll</td>
+                <td th:text="${syslog.method}">[类名]com.zp.blog.web.back.AdminUserController[方法名]showAll</td>
+                <td th:text="${syslog.executionTime}+'毫秒'">132毫秒</td>
+                <td>
+                    <a href="#" th:href="@{'/admin/syslog/deleteById?id='+${syslog.id}}" onclick="return confirmDel()"
+                       class="ui mini red basic button">删除</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="10">
+                    <div class="ui mini pagination menu">
+                        <a onclick="page(this)" class=" item"
+                           th:attr="pageNum = ${pageInfo.pageNum - 1 <= 0 ? 1 : pageInfo.pageNum - 1}">上一页</a>
+                        <a onclick="page(this)" href="#" th:attr="pageNum=${n}" class=" item"
+                           th:classappend="${pageInfo.pageNum == n ? 'active' : ''}"
+                           th:each="n:${pageInfo.navigatepageNums}"><span th:text="${n}">1</span></a>
+                        <a onclick="page(this)" class=" item"
+                           th:attr="pageNum = ${pageInfo.pageNum + 1 > pageInfo.pages ? pageInfo.pages : pageInfo.pageNum + 1}">下一页</a>
+                    </div>
+                    <input class="ui mini right floated red basic button" type="submit" value="删除选中">
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--底部footer-->
+<footer class="ui inverted vertical segment m-padded-tb-massive" th:replace="admin/commons :: footer">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <img src="../../static/images/wechat.jpg" class="ui rounded image" alt="" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+                    <a href="#" class="item m-text-thin">用户故事（User Story）</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item m-text-thin">Email：123456@163.com</a>
+                    <a href="#" class="item m-text-thin">QQ：123456</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 - 2030</p>
+    </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    function confirmDel() {
+        if (confirm("确定删除吗？")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //使用局部刷新，把点击的页面传给form表单的name为pageNum的input，在提交表单
+    function page(obj) {
+        $("#pageNum").val($(obj).attr('pageNum'));
+        loaddata();
+    }
+
+    //提交表单
+    function loaddata() {
+        var pageNum = $("#pageNum").val();
+        var nickname = $("#nickname").val();
+        //局部刷新的必须的元素id必须调用load
+        $("#syslogList").load(/*[[@{/admin/syslog/showAll/search}]]*/"/admin/syslog/showAll/search",
+            {pageNum: pageNum, nickname: nickname})
+
+    }
+
+    //消息提示关闭初始化
+    $('.message .close').on('click', function () {
+        $(this).closest('.message').transition('fade');
+    });
+
+    $('#clear-btn')
+        .on('click', function () {
+            $('.ui.type.dropdown')
+                .dropdown('clear')
+            ;
+        });
+
+
+    function changeSelect(obj) {
+        var flag = $(obj).prop("checked");
+        $("input[name='ids']").prop("checked", flag)
+    };
+
+
+</script>
+</body>
+</html>

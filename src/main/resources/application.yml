@@ -1,0 +1,65 @@
+spring:
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      # 单个文件的最大值(注：springboot默认的文件大小限制为3M)
+      max-file-size: 5MB
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml  #\u6307\u5B9A\u5168\u5C40\u914D\u7F6E\u6587\u4EF6\u7684\u4F4D\u7F6E
+  mapper-locations: classpath:mybatis/mapper/*.xml   #\u6307\u5B9Asql\u6620\u5C04\u6587\u4EF6\u7684\u4F4D\u7F6E  \u6570\u7EC4
+
+---
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/newblog?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  profiles: dev
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    database: 10
+    timeout: 5000
+
+    #    host: 192.168.1.227
+    #    port: 6379
+    #    password: hfmxa210
+    #    database: 10
+
+
+server:
+  port: 8080
+logging:
+  level:
+    root: info #\u9ED8\u8BA4\u7684
+    com.zp.blog: debug
+  file: blog/blog-dev.log
+
+
+
+
+
